@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>인체 드로잉 확장편</title>
+
+<!-- 홈 화면 아이콘 — 이 페이지가 존재하는 유일한 이유다.
+     앱(구글 Apps Script)은 iframe 안에서 돌아가 아이폰이 아이콘을 찾는 자리에
+     손이 닿지 않는다. 그래서 아이콘만 달고 주소를 넘겨주는 얇은 페이지를 둔다. -->
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="인체 드로잉">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#EDECEC">
+
+<style>
+  :root { --ground:#EDECEC; --ink:#26282E; --soft:#767B87; --gold:#F0C98A; --deep:#8A6520; }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--ground);color:var(--ink);display:flex;align-items:center;
+    justify-content:center;padding:1.6rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+  .card{width:100%;max-width:24rem;background:linear-gradient(168deg,#FFF 0%,#F7F7F9 100%);
+    border-radius:26px;padding:2.2rem 1.8rem;text-align:center;
+    box-shadow:0 2px 3px rgba(146,149,168,.16),0 10px 18px rgba(146,149,168,.2),
+      0 26px 46px rgba(146,149,168,.22),-12px -12px 26px rgba(255,255,255,.9)}
+  img.ico{width:88px;height:88px;border-radius:20px;display:block;margin:0 auto 1.1rem;
+    box-shadow:0 6px 14px rgba(146,149,168,.28)}
+  h1{font-size:1.32rem;margin:0 0 .35rem;letter-spacing:-.02em}
+  .sub{font-size:.9rem;color:var(--soft);margin:0 0 1.5rem;line-height:1.6}
+  a.go{display:block;background:var(--gold);color:var(--deep);text-decoration:none;
+    font-weight:700;font-size:1.02rem;padding:.95rem 1rem;border-radius:16px;
+    box-shadow:0 6px 14px rgba(240,201,138,.5)}
+  a.go:active{transform:translateY(1px)}
+  .tip{margin:1.5rem 0 0;padding-top:1.2rem;border-top:1px solid rgba(146,149,168,.24);
+    font-size:.84rem;color:var(--soft);line-height:1.75;text-align:left}
+  .tip b{color:var(--ink)}
+  .tip .k{display:inline-block;background:rgba(146,149,168,.16);border-radius:6px;
+    padding:.1rem .4rem;font-size:.8rem}
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="ico" src="icon-180.png" alt="">
+    <h1>인체 드로잉 확장편</h1>
+    <p class="sub">과제 제출 · 크로키 일지 · 수업 일정</p>
+    <a class="go" id="go" href="#">수업 들어가기</a>
+    <p class="tip">
+      <b>홈 화면에 두고 쓰세요.</b><br>
+      아이폰 — 아래 <span class="k">공유 ⬆︎</span> → <span class="k">홈 화면에 추가</span><br>
+      안드로이드 — 오른쪽 위 <span class="k">⋮</span> → <span class="k">홈 화면에 추가</span>
+    </p>
+  </div>
+
+<script>
+  /* 수업 앱 주소. 배포를 「연필 ✏️ → 새 버전」으로 하면 이 주소는 그대로다.
+     「새 배포」로 새로 만들면 주소가 바뀌므로 이 한 줄만 갈아 끼우면 된다. */
+  var APP = "https://script.google.com/macros/s/"
+          + "AKfycbwfuOyHr2QLuZNnRU35Cz2a1ng5LhVsPbQvOS67TLObvCurHnRgLlYulYxxecoy1Wy40w"
+          + "/exec";
+
+  document.getElementById("go").href = APP;
+
+  /* 홈 화면 아이콘으로 연 것이면 바로 앱으로 보낸다(안내를 다시 볼 이유가 없다).
+     브라우저 탭으로 열었으면 그대로 두어야 "홈 화면에 추가"를 할 수 있다 —
+     여기서 무조건 넘겨 버리면 추가할 페이지가 사라진다. */
+  var standalone = window.navigator.standalone === true ||
+      (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
+  if (standalone) window.location.replace(APP);
+</script>
+</body>
+</html>
